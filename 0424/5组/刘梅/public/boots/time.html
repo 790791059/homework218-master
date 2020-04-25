@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时间</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#mybutton").click(function () {
+                $.ajax({
+                    url: "/payServlet",   // 请求路径
+                    type: "POST",            // 请求的方式，不区分大小写
+                    cache: false,            // 关闭缓存，目的是为了避免部分浏览器缓存加载出错(IE)
+                    datatype: "json",        // 返回类型，text文本、html页面、json数据
+                    // contentType: "application/json; charset=utf-8",
+                    data: {},
+                    success: function (response) {
+                    },
+                    error: function (response) {
+                        alert("出错" + response);
+                    }
+                });
+            })
+        })
+    </script>
+</head>
+<body>
+<button id="mybutton">点击</button></body>
+<a href="http://localhost:8080//pay2Servlet">立即购买</a>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" charset="UTF-8"/>
+    <title>Title</title>
+    <style type="text/css">
+        html{height:100%}
+        body{height:100%;margin:0px;padding:0px}
+        #container{height:100%}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=F0nGw0xh9t9Gmnufjyfe43ScGv5EprHc"></script>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+<script>
+    var map = new BMap.Map("container");
+    var point = new BMap.Point(104.059579, 30.548991);      // 纬度   经度
+    map.centerAndZoom(point, 15);
+    map.enableScrollWheelZoom(true);                        //开启鼠标滚轮缩放
+    map.addControl(new BMap.NavigationControl());           // 平移缩放控件
+    map.addControl(new BMap.ScaleControl());                // 比例尺  默认位于地图左下方，显示地图的比例关系
+    map.addControl(new BMap.OverviewMapControl());          // 缩略地图  默认位于地图右下方，是一个可折叠的缩略地图
+    map.addControl(new BMap.MapTypeControl());              // 地图类型  默认位于地图右上方
+    map.addControl(new BMap.GeolocationControl());          //  手机端使用定位功能  默认位于地图左下方
+    map.setCurrentCity("成都"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
+
+    var marker = new BMap.Marker(point);                   // 创建标注
+    map.addOverlay(marker);                                // 将标注添加到地图中
+    marker.addEventListener("click", function(){          // 标注添加监听
+        alert("您点击了标注");
+    });
+
+    function drawGreenLine(startLong,startLat,endLong,endLat,lineColor){
+        var polyline = new BMap.Polyline([
+            new BMap.Point(startLong,startLat),//起始点的经纬度
+            new BMap.Point(endLong,endLat)//终止点的经纬度
+        ], {strokeColor: lineColor,//设置颜色
+            strokeWeight: 3, //宽度
+            strokeOpacity: 1});//透明度
+        map.addOverlay(polyline);
+    }
+    drawGreenLine(104.059579, 30.548991, 104.050579, 30.548991, "green");
+    drawGreenLine(104.050559, 30.548991, 104.050539, 30.540991, "red");
+    drawGreenLine(104.050539, 30.540991, 104.030539, 30.540991, "blue");
+</script>
+</html>
